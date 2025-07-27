@@ -21,147 +21,157 @@ baseDato = {
     }
 }
 
+#Menus para los diferentes usuarios
+
+def menu_artesano(usuario):
+    while True:
+        print("\n--- Menú del Artesano ---")
+        print("1. Ver mi información")
+        print("2. Actualizar mi número telefónico")
+        print("3. Actualizar mi correo electrónico")
+        print("4. Ver productos")
+        print("5. Ver ventas")
+        print("6. Cerrar sesión")
+        opcion = input("Elija una opción: ")
+        print("")
+
+        if opcion == "1":
+            for k, v in usuario.items():
+                print(f"{k.replace('identificacion', 'RUC/Cédula').capitalize()}: {v}")
+        elif opcion == "2":
+            usuario["telefono"] = input("Nuevo teléfono: ")
+            print("¡Teléfono actualizado!")
+        elif opcion == "3":
+            nuevo_email = input("Nuevo correo electrónico: ")
+            if nuevo_email in baseDato and nuevo_email != usuario["email"]:
+                print("Ese correo ya está en uso.")
+            else:
+                baseDato[nuevo_email] = usuario
+                baseDato[nuevo_email]["email"] = nuevo_email
+                del baseDato[usuario["email"]]
+                usuario["email"] = nuevo_email
+                print("Correo actualizado exitosamente.")
+        elif opcion == "4":
+            print("\n--- Productos disponibles ---")
+            print("1. Collar de plata - $25.00")
+            print("2. Pulsera de cuero - $15.00")
+            print("3. Cerámica pintada a mano - $40.00")
+        elif opcion == "5":
+            print("\n--- Ventas recientes ---")
+            print("Venta: 2 collares vendidos.")
+            print("Total: $50.75")
+            print("Comprador: Mateo Romanof")
+            print("Estado: Enviado")
+        elif opcion == "6":
+            print("Sesión cerrada. ¡Hasta luego!")
+            break
+        else:
+            print("Opción inválida.")
+
+def menu_cliente(usuario):
+    while True:
+        print("\n--- Menú del Cliente ---")
+        print("1. Ver mi información")
+        print("2. Actualizar mi número telefónico")
+        print("3. Actualizar mi correo electrónico")
+        print("4. Cerrar sesión")
+        opcion = input("Elija una opción: ")
+        print("")
+
+        if opcion == "1":
+            for k, v in usuario.items():
+                print(f"{k.replace('identificacion', 'RUC/Cédula').capitalize()}: {v}")
+        elif opcion == "2":
+            usuario["telefono"] = input("Nuevo teléfono: ")
+            print("¡Teléfono actualizado!")
+        elif opcion == "3":
+            nuevo_email = input("Nuevo correo electrónico: ")
+            if nuevo_email in baseDato and nuevo_email != usuario["email"]:
+                print("Ese correo ya está en uso.")
+            else:
+                baseDato[nuevo_email] = usuario
+                baseDato[nuevo_email]["email"] = nuevo_email
+                del baseDato[usuario["email"]]
+                usuario["email"] = nuevo_email
+                print("Correo actualizado exitosamente.")
+        elif opcion == "4":
+            print("Sesión cerrada. ¡Hasta luego!")
+            break
+        else:
+            print("Opción inválida.")
+
+
+#Programa Principal
+
 while True:
     print("\n--- Menú Principal ---")
-    valor1 = input("¿Desea registrarse (1) o ingresar al sistema (2)? (Para salir ingrese (3)): ")
+    valor1 = input("¿Desea registrarse (1), ingresar al sistema (2) o salir (3)?: ")
 
     if valor1 == "1":
-        print("\n----Proceso de Registro----")
-        valor2 = input("¿Desea registrarse como Artesano (1) o como Cliente (2)?: ")
+        print("\n----Registro----")
+        valor2 = input("¿Registrarse como Artesano (1) o Cliente (2)?: ")
 
-        if valor2 == "1": # Registro de Artesano
-            narte = input("Ingrese su nombre: ")
-            aarte = input("Ingrese su apellido: ")
-            carte = input("Ingrese su RUC (será su contraseña): ") # Contraseña es el RUC
-            cearte = input("Ingrese su correo electrónico: ")
-            tarte = input("Ingrese su número telefónico: ")
+        if valor2 == "1":
+            narte = input("Nombre: ")
+            aarte = input("Apellido: ")
+            carte = input("RUC (será su contraseña): ")
+            cearte = input("Correo electrónico: ")
+            tarte = input("Teléfono: ")
 
             if cearte in baseDato:
-                print("¡Error! Ya existe un usuario (Artesano o Cliente) registrado con este correo electrónico.")
+                print("¡Error! Correo ya registrado.")
             else:
                 baseDato[cearte] = {
                     "tipo": "Artesano",
                     "nombre": narte,
                     "apellido": aarte,
-                    "identificacion": carte, # Guarda el RUC como identificacion
+                    "identificacion": carte,
                     "email": cearte,
                     "telefono": tarte
                 }
-                print("\n----Registro de Artesano Exitoso!!----")
-        elif valor2 == "2": # Registro de Cliente
-            nclie = input("Ingrese su nombre: ")
-            aclie = input("Ingrese su apellido: ")
-            cclie = input("Ingrese su cédula (será su contraseña): ") # Contraseña es la cédula
-            ceclie = input("Ingrese su correo electrónico: ")
-            tclie = input("Ingrese su número telefónico: ")
+                print("¡Registro exitoso como Artesano!")
+        elif valor2 == "2":
+            nclie = input("Nombre: ")
+            aclie = input("Apellido: ")
+            cclie = input("Cédula (será su contraseña): ")
+            ceclie = input("Correo electrónico: ")
+            tclie = input("Teléfono: ")
 
             if ceclie in baseDato:
-                print("¡Error! Ya existe un usuario (Artesano o Cliente) registrado con este correo electrónico.")
+                print("¡Error! Correo ya registrado.")
             else:
                 baseDato[ceclie] = {
                     "tipo": "Cliente",
                     "nombre": nclie,
                     "apellido": aclie,
-                    "identificacion": cclie, # Guarda la cédula como identificacion
+                    "identificacion": cclie,
                     "email": ceclie,
                     "telefono": tclie
                 }
-                print("\n----Registro de Cliente Exitoso!!----")
+                print("¡Registro exitoso como Cliente!")
         else:
-            print("Opción inválida. Por favor, ingrese 1 para Artesano o 2 para Cliente.")
+            print("Opción inválida.")
 
-    elif valor1 == "2": # Proceso de Ingreso
-        print("\n----Proceso de Ingreso----")
-        correo_ingresado = input("Ingrese su correo electrónico: ")
-        contra_ingresada = input("Ingrese su contraseña (RUC o Cédula): ")
+    elif valor1 == "2":
+        print("\n----Ingreso----")
+        correo_ingresado = input("Correo electrónico: ")
+        contra_ingresada = input("Contraseña (RUC/Cédula): ")
 
         if correo_ingresado in baseDato:
-            usuario_registrado = baseDato[correo_ingresado]
-            # Accedemos a la "identificacion" (RUC/cédula) guardada para verificar
-            if usuario_registrado["identificacion"] == contra_ingresada:
-                print(f"\n----¡Ingreso Exitoso! Bienvenido/a {usuario_registrado['nombre']} como {usuario_registrado['tipo']}----")
-                
-                
-                while True:
-                    print("\n--- Menú de Usuario ---")
-                    print("1. Ver mi información")
-                    print("2. Actualizar mi número telefónico")
-                    print("3. Actualizar mi correo electrónico")
-                    print("4. Ver productos (Solo para Artesanos)")
-                    print("5. Ver ventas (Solo para Artesanos)")
-                    print("6. Cerrar sesión")
-                    opcion_usuario = input("¿Qué desea hacer?: ")
-
-                    if opcion_usuario == "1":
-                        print("\n--- Su Información ---")
-                        for key, value in usuario_registrado.items():
-                            print(f"{key.replace('identificacion', 'RUC/Cédula').capitalize()}: {value}")
-                        print("--------------------")
-
-                    elif opcion_usuario == "2":
-                        nuevo_telefono = input("Ingrese su nuevo número telefónico: ")
-                        usuario_registrado["telefono"] = nuevo_telefono
-                        print("¡Número telefónico actualizado con éxito!")
-
-                    elif opcion_usuario == "3":
-                        nuevo_email = input("Ingrese su nuevo correo electrónico: ")
-                        if nuevo_email in baseDato and nuevo_email != correo_ingresado:
-                            print("¡Error! Este correo ya está registrado por otro usuario.")
-                        else:
-                            # Creamos una nueva entrada con el nuevo correo y eliminamos la vieja
-                            baseDato[nuevo_email] = usuario_registrado
-                            baseDato[nuevo_email]["email"] = nuevo_email # Actualizar el email dentro del diccionario
-                            del baseDato[correo_ingresado] # Eliminamos la entrada antigua
-                            correo_ingresado = nuevo_email # Actualizamos el correo_ingresado para futuras operaciones
-                            print("¡Correo electrónico actualizado con éxito! Su nuevo usuario es:", nuevo_email)
-                            
-                    elif opcion_usuario == "4": 
-                        if usuario_registrado["tipo"] == "Artesano":
-                            print("\n--- Ver productos del artesano ---")
-                            input("Presione Enter para ver sus productos...")
-                            print("Mostrando productos...")
-                            print("Producto 1: Collar de plata - Precio: $25.00")
-                            print("Producto 2: Pulsera de cuero - Precio: $15.00")
-                            print("Producto 3: Cerámica pintada a mano - Precio: $40.00")
-                        else:
-                            print("¡Acceso denegado! Esta opción es solo para Artesanos.")
-                    
-                    
-                    elif opcion_usuario == "5": 
-                        if usuario_registrado["tipo"] == "Artesano":
-                            print("\n--- Ver ventas del artesano ---")
-                            input("Presione Enter para ver sus ventas...")
-                            venta_aleatoria = 50.75 # Valor de ejemplo
-                            print(f"Su venta reciente fue de: ${venta_aleatoria:.2f}")
-                            print("Detalle: 2 collares vendidos.")
-                            print("comprador: Mateo Romanof")
-                            print("estado: enviado")
-                        else:
-                            print("¡Acceso denegado! Esta opción es solo para Artesanos.")
-                    
-                    elif opcion_usuario == "6": # Cerrar sesión
-                        print("Cerrando sesión. ¡Hasta pronto!")
-                        break
-
-                    else:
-                        print("Opción inválida. Por favor, seleccione una opción válida.")
-                
-                
-                
-                
-                
-                # Aquí podrías añadir la lógica para llevar al usuario al menú principal de su tipo
+            usuario = baseDato[correo_ingresado]
+            if usuario["identificacion"] == contra_ingresada:
+                print(f"\n¡Ingreso exitoso! Bienvenido/a {usuario['nombre']} ({usuario['tipo']})")
+                if usuario["tipo"] == "Artesano":
+                    menu_artesano(usuario)
+                else:
+                    menu_cliente(usuario)
             else:
-                print("\n----Contraseña incorrecta. Por favor, intente de nuevo.----")
+                print("Contraseña incorrecta.")
         else:
-            print("\n----Correo electrónico no registrado. Por favor, regístrese o verifique su correo.----")
-            
-    elif valor1 == "3": # opción para salir
-        print("Saliendo del sistema. ¡Hasta luego!")
-        break 
+            print("Correo no registrado.")
+    elif valor1 == "3":
+        print("Gracias por usar el sistema. ¡Hasta luego!")
+        break
     else:
-        print("Opción inválida. Por favor, seleccione 1 para registrarse o 2 para ingresar.")
-    
-    
-
+        print("Opción inválida.")
     
