@@ -4,10 +4,10 @@ import mysql.connector
 def conectar():
     try:
         conexion = mysql.connector.connect(
-            host="localhost",     # o la IP de tu servidor MySQL
-            user="root",          # cambia esto si usas otro usuario
-            password="",          # tu contraseña de MySQL
-            database="proyectob"  # nombre exacto de la base de datos del archivo .sql
+            host="localhost",     
+            user="root",          
+            password="",          
+            database="proyectob"  
         )
         print("Conexión exitosa a la base de datos.")
         return conexion
