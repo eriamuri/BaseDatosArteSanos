@@ -83,6 +83,8 @@ foreign key(administradorID) references administrador(administradorID));
 CREATE TABLE DETALLES_PXT(
 productoID int,
 transaccionID int,
+cantidad int,
+subtotal float,
 primary key(productoID,transaccionID),
 foreign key (productoID) references producto (productoID),
 foreign key (transaccionID) references transaccion(transaccionID));
@@ -230,17 +232,17 @@ INSERT INTO PRODUCTO (productoID, nombre, descripcion, categoria, precio, porcen
 (10, 'Instrumentos Andinos', 'Quena artesanal tallada en caña de Guadúa', 'Instrumentos', 32.15, 15.0, 14, 1357924680, 'APROBADO', 4);
 
 -- TABLA DETALLES_PXT (10 registros)
-INSERT INTO DETALLES_PXT (productoID, transaccionID) VALUES
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6),
-(7, 7),
-(8, 8),
-(9, 9),
-(10, 10);
+INSERT INTO DETALLES_PXT (productoID, transaccionID, cantidad, subtotal) VALUES
+(1, 1, 1, 85.00),       
+(2, 2, 1, 120.00),      
+(3, 3, 2, 91.00),       
+(4, 4, 2, 131.50),     
+(5, 5, 1, 55.30),      
+(6, 6, 2, 157.80),      
+(7, 7, 1, 35.60),       
+(8, 8, 2, 56.80),       
+(9, 9, 3, 128.40),     
+(10, 10, 1, 32.15);     
 
 -- TABLA FOTO (10 registros)
 INSERT INTO FOTO (fotoID, formato, peso, url, productoID) VALUES
