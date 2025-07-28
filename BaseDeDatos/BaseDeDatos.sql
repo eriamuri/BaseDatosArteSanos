@@ -166,16 +166,16 @@ INSERT INTO SOPORTE (soporteID, correoElectronico, administradorID) VALUES
 
 -- TABLA ARTESANO (10 registros)
 INSERT INTO ARTESANO (ruc, nombres, apellidos, correoElectronico, telefono, aceptaTerminos, administradorID) VALUES
-(1234567890, 'Rosa María', 'Chamba Quishpe', 'rosa.chamba@artesano.com', '0987123456', true, 1),
-(1345678901, 'Manuel Eugenio', 'Toapanta Iza', 'manuel.toapanta@artesano.com', '0976234567', true, 2),
-(1456789012, 'Carmen Dolores', 'Pilataxi Saca', 'carmen.pilataxi@artesano.com', '0965345678', false, 3),
-(1567890123, 'Washington Luis', 'Morocho Silva', 'washington.morocho@artesano.com', '0954456789', true, 1),
-(1678901234, 'Blanca Esperanza', 'Ushiña Caiza', 'blanca.ushina@artesano.com', '0943567890', true, 2),
-(1789012345, 'Segundo Miguel', 'Chicaiza Ante', 'segundo.chicaiza@artesano.com', '0932678901', true, 4),
-(1890123456, 'María Inés', 'Quinapanta Taco', 'maria.quinapanta@artesano.com', '0921789012', true, 3),
-(1901234567, 'Alberto Ramón', 'Chisaguano Ante', 'alberto.chisaguano@artesano.com', '0910890123', false, 5),
-(2012345678, 'Luz Marina', 'Chuquitarco Ante', 'luz.chuquitarco@artesano.com', '0909901234', true, 1),
-(1357924680, 'Víctor Hugo', 'Sailema Taco', 'victor.sailema@artesano.com', '0998012345', true, 4);
+('1234567890', 'Rosa María', 'Chamba Quishpe', 'rosa.chamba@artesano.com', '0987123456', true, 1),
+('1345678901', 'Manuel Eugenio', 'Toapanta Iza', 'manuel.toapanta@artesano.com', '0976234567', true, 2),
+('1456789012', 'Carmen Dolores', 'Pilataxi Saca', 'carmen.pilataxi@artesano.com', '0965345678', false, 3),
+('1567890123', 'Washington Luis', 'Morocho Silva', 'washington.morocho@artesano.com', '0954456789', true, 1),
+('1678901234', 'Blanca Esperanza', 'Ushiña Caiza', 'blanca.ushina@artesano.com', '0943567890', true, 2),
+('1789012345', 'Segundo Miguel', 'Chicaiza Ante', 'segundo.chicaiza@artesano.com', '0932678901', true, 4),
+('1890123456', 'María Inés', 'Quinapanta Taco', 'maria.quinapanta@artesano.com', '0921789012', true, 3),
+('1901234567', 'Alberto Ramón', 'Chisaguano Ante', 'alberto.chisaguano@artesano.com', '0910890123', false, 5),
+('2012345678', 'Luz Marina', 'Chuquitarco Ante', 'luz.chuquitarco@artesano.com', '0909901234', true, 1),
+('1357924680', 'Víctor Hugo', 'Sailema Taco', 'victor.sailema@artesano.com', '0998012345', true, 4);
 
 -- TABLA TRANSACCION (10 registros)
 INSERT INTO TRANSACCION (transaccionID, valorTotal, estado, fecha, clienteID) VALUES
