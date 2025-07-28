@@ -1,117 +1,129 @@
-CREATE DATABASE proyectob;
-use proyectob;
+CREATE DATABASE IF NOT EXISTS proyectob;
+USE proyectob;
+
 CREATE TABLE CLIENTE(
-cedula char(10) primary key,
-nombres varchar(30) not null,
-apellidos varchar(30) not null,
-correoElectronico varchar(100) default null,
-telefono char(10) default null,
-ubicacion varchar(50) not null,
-aceptaTermino boolean not null);
+  cedula CHAR(10) PRIMARY KEY,
+  nombres VARCHAR(30) NOT NULL,
+  apellidos VARCHAR(30) NOT NULL,
+  correoElectronico VARCHAR(100) DEFAULT NULL,
+  telefono CHAR(10) DEFAULT NULL,
+  ubicacion VARCHAR(50) NOT NULL,
+  aceptaTermino BOOLEAN NOT NULL
+);
 
 CREATE TABLE ADMINISTRADOR(
-administradorID int primary key,
-nombres varchar(30) not null,
-apellidos varchar(30) not null,
-correoElectronico varchar(100) not null);
+  administradorID INT PRIMARY KEY AUTO_INCREMENT,
+  nombres VARCHAR(30) NOT NULL,
+  apellidos VARCHAR(30) NOT NULL,
+  correoElectronico VARCHAR(100) NOT NULL
+);
 
 CREATE TABLE COURIER(
-courierID int primary key,
-nombres varchar(30) not null,
-apellidos varchar(30) not null,
-cantidadEnvios int default 0,
-codigoEmpresa varchar(20) not null);
+  courierID INT PRIMARY KEY,
+  nombres VARCHAR(30) NOT NULL,
+  apellidos VARCHAR(30) NOT NULL,
+  cantidadEnvios INT DEFAULT 0,
+  codigoEmpresa VARCHAR(20) NOT NULL
+);
 
 CREATE TABLE SOPORTE(
-soporteID int primary key,
-correoElectronico varchar(100),
-administradorID int,
-foreign key (administradorID) references administrador(administradorID));
+  soporteID INT PRIMARY KEY,
+  correoElectronico VARCHAR(100),
+  administradorID INT,
+  FOREIGN KEY (administradorID) REFERENCES ADMINISTRADOR(administradorID)
+);
 
 CREATE TABLE TRANSACCION(
-transaccionID int primary key,
-valorTotal float not null,
-estado varchar(20) not null,
-fecha date not null,
-clienteID char(10) not null,
-foreign key (clienteID) references cliente(cedula));
+  transaccionID INT PRIMARY KEY,
+  valorTotal FLOAT NOT NULL,
+  estado VARCHAR(20) NOT NULL,
+  fecha DATE NOT NULL,
+  clienteID CHAR(10) NOT NULL,
+  FOREIGN KEY (clienteID) REFERENCES CLIENTE(cedula)
+);
 
 CREATE TABLE ARTESANO(
-ruc varchar(13) primary key,
-nombres varchar(30) not null,
-apellidos varchar(30) not null,
-correoElectronico varchar(100) default null,
-telefono varchar(15) not null,
-aceptaTerminos boolean not null,
-administradorID int,
-foreign key (administradorID) references administrador (administradorID));
+  ruc VARCHAR(13) PRIMARY KEY,
+  nombres VARCHAR(30) NOT NULL,
+  apellidos VARCHAR(30) NOT NULL,
+  correoElectronico VARCHAR(100) DEFAULT NULL,
+  telefono VARCHAR(15) NOT NULL,
+  aceptaTerminos BOOLEAN NOT NULL,
+  administradorID INT,
+  FOREIGN KEY (administradorID) REFERENCES ADMINISTRADOR(administradorID)
+);
 
 CREATE TABLE PAGO(
-pagoID int primary key,
-tipo enum('DEPOSITO','TRANSFERENCIA'),
-valorPago float not null,
-fecha date not null,
-metodoPago varchar(30) not null,
-transaccionID int,
-foreign key (transaccionID) references transaccion (transaccionID));
+  pagoID INT PRIMARY KEY,
+  tipo ENUM('DEPOSITO','TRANSFERENCIA'),
+  valorPago FLOAT NOT NULL,
+  fecha DATE NOT NULL,
+  metodoPago VARCHAR(30) NOT NULL,
+  transaccionID INT,
+  FOREIGN KEY (transaccionID) REFERENCES TRANSACCION(transaccionID)
+);
 
 CREATE TABLE PEDIDO(
-pedidoID int primary key,
-fechaEvento date not null,
-direccionDestino varchar(100) not null,
-estado varchar(30) not null,
-estadoGPS varchar(50) not null,
-transaccionID int not null,
-courierID int not null,
-foreign key (transaccionID) references transaccion(transaccionID),
-foreign key (courierID) references courier (courierID));
+  pedidoID INT PRIMARY KEY,
+  fechaEvento DATE NOT NULL,
+  direccionDestino VARCHAR(100) NOT NULL,
+  estado VARCHAR(30) NOT NULL,
+  estadoGPS VARCHAR(50) NOT NULL,
+  transaccionID INT NOT NULL,
+  courierID INT NOT NULL,
+  FOREIGN KEY (transaccionID) REFERENCES TRANSACCION(transaccionID),
+  FOREIGN KEY (courierID) REFERENCES COURIER(courierID)
+);
 
 CREATE TABLE PRODUCTO(
-productoID int primary key,
-nombre varchar(30) not null,
-descripcion char(60) default null,
-categoria varchar(50) not null,
-precio float not null,
-porcentajeIVA float not null,
-stock int default 0,
-artesanoID int,
-estadoRevision varchar(20),
-administradorID int,
-foreign key (artesanoID) references artesano(ruc),
-foreign key(administradorID) references administrador(administradorID));
+  productoID INT PRIMARY KEY,
+  nombre VARCHAR(30) NOT NULL,
+  descripcion CHAR(60) DEFAULT NULL,
+  categoria VARCHAR(50) NOT NULL,
+  precio FLOAT NOT NULL,
+  porcentajeIVA FLOAT NOT NULL,
+  stock INT DEFAULT 0,
+  artesanoID VARCHAR(13),
+  estadoRevision VARCHAR(20),
+  administradorID INT,
+  FOREIGN KEY (artesanoID) REFERENCES ARTESANO(ruc),
+  FOREIGN KEY(administradorID) REFERENCES ADMINISTRADOR(administradorID)
+);
 
 CREATE TABLE DETALLES_PXT(
-productoID int,
-transaccionID int,
-cantidad int,
-subtotal float,
-primary key(productoID,transaccionID),
-foreign key (productoID) references producto (productoID),
-foreign key (transaccionID) references transaccion(transaccionID));
+  productoID INT,
+  transaccionID INT,
+  cantidad INT,
+  subtotal FLOAT,
+  PRIMARY KEY(productoID, transaccionID),
+  FOREIGN KEY (productoID) REFERENCES PRODUCTO(productoID),
+  FOREIGN KEY (transaccionID) REFERENCES TRANSACCION(transaccionID)
+);
 
 CREATE TABLE FOTO(
-fotoID int primary key,
-formato varchar(10) not null,
-peso int,
-url varchar(255),
-productoID int,
-foreign key (productoID) references producto(productoID));
+  fotoID INT PRIMARY KEY,
+  formato VARCHAR(10) NOT NULL,
+  peso INT,
+  url VARCHAR(255),
+  productoID INT,
+  FOREIGN KEY (productoID) REFERENCES PRODUCTO(productoID)
+);
 
 CREATE TABLE DEVOLUCION(
-devolucionID int primary key,
-fechaInicio date not null,
-fechaFin date not null,
-tipo enum('PRUEBA','DANO'),
-motivo varchar(20) default null,
-comentario char(60) default null,
-productoID int,
-soporteID int,
-transaccionID int,
-clienteID char(10),
-foreign key (productoID) references producto(productoID),
-foreign key (soporteID) references soporte(soporteID),
-foreign key (transaccionID) references transaccion(transaccionID),
-foreign key (clienteID) references cliente(cedula));
+  devolucionID INT PRIMARY KEY,
+  fechaInicio DATE NOT NULL,
+  fechaFin DATE NOT NULL,
+  tipo ENUM('PRUEBA','DANO'),
+  motivo VARCHAR(20) DEFAULT NULL,
+  comentario CHAR(60) DEFAULT NULL,
+  productoID INT,
+  soporteID INT,
+  transaccionID INT,
+  clienteID CHAR(10),
+  FOREIGN KEY (productoID) REFERENCES PRODUCTO(productoID),
+  FOREIGN KEY (soporteID) REFERENCES SOPORTE(soporteID),
+  FOREIGN KEY (transaccionID) REFERENCES TRANSACCION(transaccionID),
+  FOREIGN KEY (clienteID) REFERENCES CLIENTE(cedula)
  
  
 -- TABLA CLIENTE (10 registros)
