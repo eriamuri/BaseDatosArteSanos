@@ -37,7 +37,7 @@ clienteID char(10) not null,
 foreign key (clienteID) references cliente(cedula));
 
 CREATE TABLE ARTESANO(
-ruc int primary key,
+ruc varchar(13) primary key,
 nombres varchar(30) not null,
 apellidos varchar(30) not null,
 correoElectronico varchar(100) default null,
