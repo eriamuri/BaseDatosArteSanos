@@ -125,7 +125,7 @@ CREATE TABLE DEVOLUCION(
   FOREIGN KEY (transaccionID) REFERENCES TRANSACCION(transaccionID),
   FOREIGN KEY (clienteID) REFERENCES CLIENTE(cedula)
  
- 
+-- CRUD
 -- TABLA CLIENTE (10 registros)
 INSERT INTO CLIENTE (cedula, nombres, apellidos, correoElectronico, telefono, ubicacion, aceptaTermino) VALUES
 ('0912345678', 'María Elena', 'González Pérez', 'maria.gonzalez@email.com', '0987654321', 'Guayaquil Norte', true),
@@ -138,6 +138,25 @@ INSERT INTO CLIENTE (cedula, nombres, apellidos, correoElectronico, telefono, ub
 ('0989012345', 'Andrés Felipe', 'Morales Díaz', 'andres.morales@email.com', '0910987654', 'Riobamba Este', false),
 ('0990123456', 'Gabriela Beatriz', 'Salazar Vargas', 'gabriela.salazar@email.com', '0909876543', 'Esmeraldas Costa', true),
 ('0901234567', 'Fernando José', 'Cevallos Ramos', 'fernando.cevallos@email.com', '0998765432', 'Ibarra Norte', true);
+
+-- CREATE
+INSERT INTO CLIENTE (cedula, nombres, apellidos, correoElectronico, telefono, ubicacion, aceptaTermino)
+VALUES ('0999999999', 'Nombre', 'Apellido', 'correo@ejemplo.com', '0999999999', 'Ubicación Ejemplo', true);
+
+-- READ (todos)
+SELECT * FROM CLIENTE;
+
+-- READ (uno)
+SELECT * FROM CLIENTE WHERE cedula = '0999999999';
+
+-- UPDATE
+UPDATE CLIENTE
+SET nombres = 'Nuevo Nombre', telefono = '0987654321'
+WHERE cedula = '0999999999';
+
+-- DELETE
+DELETE FROM CLIENTE WHERE cedula = '0999999999';
+
 
 -- TABLA ADMINISTRADOR (10 registros)
 INSERT INTO ADMINISTRADOR (administradorID, nombres, apellidos, correoElectronico) VALUES
@@ -152,6 +171,26 @@ INSERT INTO ADMINISTRADOR (administradorID, nombres, apellidos, correoElectronic
 (9, 'Daniel Sebastián', 'Chávez Molina', 'daniel.chavez@proyectob.com'),
 (10, 'Verónica Alejandra', 'Paredes Núñez', 'veronica.paredes@proyectob.com');
 
+-- CREATE
+INSERT INTO ADMINISTRADOR (nombres, apellidos, correoElectronico)
+VALUES ('Nuevo', 'Administrador', 'nuevo.admin@ejemplo.com');
+
+-- READ (todos)
+SELECT * FROM ADMINISTRADOR;
+
+-- READ (uno)
+SELECT * FROM ADMINISTRADOR WHERE administradorID = 1;
+
+-- UPDATE
+UPDATE ADMINISTRADOR
+SET correoElectronico = 'actualizado@ejemplo.com'
+WHERE administradorID = 1;
+
+-- DELETE
+DELETE FROM ADMINISTRADOR WHERE administradorID = 1;
+
+
+
 -- TABLA COURIER (10 registros)
 INSERT INTO COURIER (courierID, nombres, apellidos, cantidadEnvios, codigoEmpresa) VALUES
 (1, 'Juan Carlos', 'Pérez Aguirre', 25, 'EMP001'),
@@ -164,6 +203,26 @@ INSERT INTO COURIER (courierID, nombres, apellidos, cantidadEnvios, codigoEmpres
 (8, 'Paola Alejandra', 'Vega Mendoza', 38, 'EMP002'),
 (9, 'Mauricio Andrés', 'Campos Rivera', 27, 'EMP001'),
 (10, 'Daniela Cristina', 'Morocho Tello', 33, 'EMP003');
+
+
+-- CREATE
+INSERT INTO COURIER (courierID, nombres, apellidos, cantidadEnvios, codigoEmpresa)
+VALUES (11, 'Nombre', 'Apellido', 0, 'EMP004');
+
+-- READ (todos)
+SELECT * FROM COURIER;
+
+-- READ (uno)
+SELECT * FROM COURIER WHERE courierID = 11;
+
+-- UPDATE
+UPDATE COURIER
+SET cantidadEnvios = 10, codigoEmpresa = 'EMP005'
+WHERE courierID = 11;
+
+-- DELETE
+DELETE FROM COURIER WHERE courierID = 11;
+
 
 -- TABLA SOPORTE (10 registros)
 INSERT INTO SOPORTE (soporteID, correoElectronico, administradorID) VALUES
@@ -178,6 +237,25 @@ INSERT INTO SOPORTE (soporteID, correoElectronico, administradorID) VALUES
 (9, 'soporte9@proyectob.com', 4),
 (10, 'soporte10@proyectob.com', 5);
 
+-- CREATE
+INSERT INTO SOPORTE (soporteID, correoElectronico, administradorID)
+VALUES (11, 'soporte11@proyectob.com', 1);
+
+-- READ (todos)
+SELECT * FROM SOPORTE;
+
+-- READ (uno)
+SELECT * FROM SOPORTE WHERE soporteID = 11;
+
+-- UPDATE
+UPDATE SOPORTE
+SET correoElectronico = 'nuevo.soporte@proyectob.com'
+WHERE soporteID = 11;
+
+-- DELETE
+DELETE FROM SOPORTE WHERE soporteID = 11;
+
+
 -- TABLA ARTESANO (10 registros)
 INSERT INTO ARTESANO (ruc, nombres, apellidos, correoElectronico, telefono, aceptaTerminos, administradorID) VALUES
 ('1234567890', 'Rosa María', 'Chamba Quishpe', 'rosa.chamba@artesano.com', '0987123456', true, 1),
@@ -190,6 +268,25 @@ INSERT INTO ARTESANO (ruc, nombres, apellidos, correoElectronico, telefono, acep
 ('1901234567', 'Alberto Ramón', 'Chisaguano Ante', 'alberto.chisaguano@artesano.com', '0910890123', false, 5),
 ('2012345678', 'Luz Marina', 'Chuquitarco Ante', 'luz.chuquitarco@artesano.com', '0909901234', true, 1),
 ('1357924680', 'Víctor Hugo', 'Sailema Taco', 'victor.sailema@artesano.com', '0998012345', true, 4);
+
+-- CREATE
+INSERT INTO ARTESANO (ruc, nombres, apellidos, correoElectronico, telefono, aceptaTerminos, administradorID)
+VALUES ('9999999999999', 'Nombre', 'Apellido', 'correo@artesano.com', '0999888777', true, 1);
+
+-- READ (todos)
+SELECT * FROM ARTESANO;
+
+-- READ (uno)
+SELECT * FROM ARTESANO WHERE ruc = '9999999999999';
+
+-- UPDATE
+UPDATE ARTESANO
+SET telefono = '0999777666', aceptaTerminos = false
+WHERE ruc = '9999999999999';
+
+-- DELETE
+DELETE FROM ARTESANO WHERE ruc = '9999999999999';
+
 
 -- TABLA TRANSACCION (10 registros)
 INSERT INTO TRANSACCION (transaccionID, valorTotal, estado, fecha, clienteID) VALUES
@@ -204,6 +301,25 @@ INSERT INTO TRANSACCION (transaccionID, valorTotal, estado, fecha, clienteID) VA
 (9, 145.60, 'COMPLETADA', '2025-02-05', '0990123456'),
 (10, 112.35, 'PROCESANDO', '2025-02-08', '0901234567');
 
+-- CREATE
+INSERT INTO TRANSACCION (transaccionID, valorTotal, estado, fecha, clienteID)
+VALUES (11, 100.00, 'PENDIENTE', '2025-08-06', '0912345678');
+
+-- READ (todos)
+SELECT * FROM TRANSACCION;
+
+-- READ (uno)
+SELECT * FROM TRANSACCION WHERE transaccionID = 11;
+
+-- UPDATE
+UPDATE TRANSACCION
+SET estado = 'COMPLETADA'
+WHERE transaccionID = 11;
+
+-- DELETE
+DELETE FROM TRANSACCION WHERE transaccionID = 11;
+
+
 -- TABLA PAGO (10 registros)
 INSERT INTO PAGO (pagoID, tipo, valorPago, fecha, metodoPago, transaccionID) VALUES
 (1, 'TRANSFERENCIA', 125.50, '2025-01-15', 'Tarjeta de Crédito', 1),
@@ -216,6 +332,25 @@ INSERT INTO PAGO (pagoID, tipo, valorPago, fecha, metodoPago, transaccionID) VAL
 (8, 'DEPOSITO', 298.15, '2025-02-03', 'Transferencia Bancaria', 8),
 (9, 'TRANSFERENCIA', 145.60, '2025-02-05', 'Tarjeta de Débito', 9),
 (10, 'DEPOSITO', 112.35, '2025-02-08', 'PayPal', 10);
+
+-- CREATE
+INSERT INTO PAGO (pagoID, tipo, valorPago, fecha, metodoPago, transaccionID)
+VALUES (11, 'DEPOSITO', 100.00, '2025-08-06', 'Efectivo', 1);
+
+-- READ (todos)
+SELECT * FROM PAGO;
+
+-- READ (uno)
+SELECT * FROM PAGO WHERE pagoID = 11;
+
+-- UPDATE
+UPDATE PAGO
+SET valorPago = 110.00
+WHERE pagoID = 11;
+
+-- DELETE
+DELETE FROM PAGO WHERE pagoID = 11;
+
 
 -- TABLA PEDIDO (10 registros)
 INSERT INTO PEDIDO (pedidoID, fechaEvento, direccionDestino, estado, estadoGPS, transaccionID, courierID) VALUES
@@ -230,6 +365,25 @@ INSERT INTO PEDIDO (pedidoID, fechaEvento, direccionDestino, estado, estadoGPS, 
 (9, '2025-02-06', 'Malecón Las Palmas, Esmeraldas', 'ENTREGADO', 'Ubicación: Destino', 9, 9),
 (10, '2025-02-09', 'Av. Teodoro Gómez, Ibarra', 'PREPARANDO', 'Ubicación: Almacén', 10, 10);
 
+-- CREATE
+INSERT INTO PEDIDO (pedidoID, fechaEvento, direccionDestino, estado, estadoGPS, transaccionID, courierID)
+VALUES (11, '2025-08-10', 'Dirección Ejemplo', 'PREPARANDO', 'Ubicación: Almacén', 1, 1);
+
+-- READ (todos)
+SELECT * FROM PEDIDO;
+
+-- READ (uno)
+SELECT * FROM PEDIDO WHERE pedidoID = 11;
+
+-- UPDATE
+UPDATE PEDIDO
+SET estado = 'ENTREGADO'
+WHERE pedidoID = 11;
+
+-- DELETE
+DELETE FROM PEDIDO WHERE pedidoID = 11;
+
+
 -- TABLA PRODUCTO (10 registros)
 INSERT INTO PRODUCTO (productoID, nombre, descripcion, categoria, precio, porcentajeIVA, stock, artesanoID, estadoRevision, administradorID) VALUES
 (1, 'Poncho Otavaleño', 'Poncho tradicional tejido a mano con lana de alpaca', 'Textiles', 85.00, 15.0, 12, 1234567890, 'APROBADO', 1),
@@ -242,6 +396,26 @@ INSERT INTO PRODUCTO (productoID, nombre, descripcion, categoria, precio, porcen
 (8, 'Joyería en Tagua', 'Collar elaborado con semillas de tagua pintadas', 'Joyería', 28.40, 15.0, 30, 1901234567, 'PENDIENTE', 5),
 (9, 'Canasta de Mimbre', 'Canasta tejida con fibras naturales de la costa', 'Cestería', 42.80, 15.0, 18, 2012345678, 'APROBADO', 1),
 (10, 'Instrumentos Andinos', 'Quena artesanal tallada en caña de Guadúa', 'Instrumentos', 32.15, 15.0, 14, 1357924680, 'APROBADO', 4);
+
+-- CREATE
+INSERT INTO PRODUCTO (productoID, nombre, descripcion, categoria, precio, porcentajeIVA, stock, artesanoID, estadoRevision, administradorID)
+VALUES (11, 'Producto Nuevo', 'Descripción ejemplo', 'Categoría', 50.00, 15.0, 10, '1234567890', 'APROBADO', 1);
+
+-- READ (todos)
+SELECT * FROM PRODUCTO;
+
+-- READ (uno)
+SELECT * FROM PRODUCTO WHERE productoID = 11;
+
+-- UPDATE
+UPDATE PRODUCTO
+SET stock = 20, precio = 55.00
+WHERE productoID = 11;
+
+-- DELETE
+DELETE FROM PRODUCTO WHERE productoID = 11;
+
+
 
 -- TABLA DETALLES_PXT (10 registros)
 INSERT INTO DETALLES_PXT (productoID, transaccionID, cantidad, subtotal) VALUES
@@ -256,6 +430,26 @@ INSERT INTO DETALLES_PXT (productoID, transaccionID, cantidad, subtotal) VALUES
 (9, 9, 3, 128.40),     
 (10, 10, 1, 32.15);     
 
+-- CREATE
+INSERT INTO DETALLES_PXT (productoID, transaccionID, cantidad, subtotal)
+VALUES (1, 11, 2, 170.00);
+
+-- READ (todos)
+SELECT * FROM DETALLES_PXT;
+
+-- READ (uno)
+SELECT * FROM DETALLES_PXT WHERE productoID = 1 AND transaccionID = 11;
+
+-- UPDATE
+UPDATE DETALLES_PXT
+SET cantidad = 3, subtotal = 255.00
+WHERE productoID = 1 AND transaccionID = 11;
+
+-- DELETE
+DELETE FROM DETALLES_PXT WHERE productoID = 1 AND transaccionID = 11;
+
+
+
 -- TABLA FOTO (10 registros)
 INSERT INTO FOTO (fotoID, formato, peso, url, productoID) VALUES
 (1, 'JPG', 2048, 'https://fotos.proyectob.com/poncho001.jpg', 1),
@@ -269,6 +463,25 @@ INSERT INTO FOTO (fotoID, formato, peso, url, productoID) VALUES
 (9, 'JPG', 2067, 'https://fotos.proyectob.com/canasta009.jpg', 9),
 (10, 'JPEG', 1734, 'https://fotos.proyectob.com/quena010.jpeg', 10);
 
+-- CREATE
+INSERT INTO FOTO (fotoID, formato, peso, url, productoID)
+VALUES (11, 'JPG', 2100, 'https://fotos.proyectob.com/nueva_foto.jpg', 1);
+
+-- READ (todos)
+SELECT * FROM FOTO;
+
+-- READ (uno)
+SELECT * FROM FOTO WHERE fotoID = 11;
+
+-- UPDATE
+UPDATE FOTO
+SET url = 'https://fotos.proyectob.com/actualizada_foto.jpg'
+WHERE fotoID = 11;
+
+-- DELETE
+DELETE FROM FOTO WHERE fotoID = 11;
+
+
 -- TABLA DEVOLUCION (10 registros)
 INSERT INTO DEVOLUCION (devolucionID, fechaInicio, fechaFin, tipo, motivo, comentario, productoID, soporteID, transaccionID, clienteID) VALUES
 (1, '2025-01-17', '2025-01-24', 'DANO', 'Defecto fabricación', 'Producto llegó con hilo suelto en el borde', 1, 1, 1, '0912345678'),
@@ -281,3 +494,22 @@ INSERT INTO DEVOLUCION (devolucionID, fechaInicio, fechaFin, tipo, motivo, comen
 (8, '2025-02-05', '2025-02-12', 'PRUEBA', 'Calidad baja', 'Pintura del collar se desprende fácilmente', 8, 3, 8, '0989012345'),
 (9, '2025-02-07', '2025-02-14', 'DANO', 'Transporte', 'Canasta llegó deformada por mal empaque', 9, 4, 9, '0990123456'),
 (10, '2025-02-10', '2025-02-17', 'PRUEBA', 'Sonido deficiente', 'Quena no produce el sonido esperado', 10, 5, 10, '0901234567');
+
+-- CREATE
+INSERT INTO DEVOLUCION (devolucionID, fechaInicio, fechaFin, tipo, motivo, comentario, productoID, soporteID, transaccionID, clienteID)
+VALUES (11, '2025-08-07', '2025-08-14', 'DANO', 'Motivo ejemplo', 'Comentario ejemplo', 1, 1, 1, '0912345678');
+
+-- READ (todos)
+SELECT * FROM DEVOLUCION;
+
+-- READ (uno)
+SELECT * FROM DEVOLUCION WHERE devolucionID = 11;
+
+-- UPDATE
+UPDATE DEVOLUCION
+SET comentario = 'Comentario actualizado'
+WHERE devolucionID = 11;
+
+-- DELETE
+DELETE FROM DEVOLUCION WHERE devolucionID = 11;
+
