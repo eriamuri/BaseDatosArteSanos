@@ -99,6 +99,6 @@ Dependiendo de tu rol, podrás acceder a diferentes módulos:
 
 ---
 
-**Gracias por utilizar el Sistema Base de Datos Artesanos. Para asistencia adicional, contacta a soporte@proyectob.com**
+**Gracias por utilizar el Sistema Base de Datos Artesanos. 
 
 
