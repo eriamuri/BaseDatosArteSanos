@@ -1,6 +1,3 @@
--- ===========================
--- Esquema y tablas mejoradas
--- ===========================
 
 CREATE DATABASE IF NOT EXISTS proyectob;
 USE proyectob;
