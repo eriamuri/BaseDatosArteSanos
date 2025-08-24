@@ -1,4 +1,4 @@
-from utilidades import insertar_registro, obtener_registros, actualizar_registro, eliminar_registro
+from utilidades import llamar_sp, obtener_registros
 
 def menu_cliente(con):
     while True:
@@ -11,7 +11,9 @@ def menu_cliente(con):
         op = input("Seleccione una opción: ")
 
         if op == "1":
-            clientes = obtener_registros(con, "CLIENTE")
+           
+            clientes = obtener_registros(con, "vw_ventas_por_cliente_detalle")
+            print("\n--- Reporte de Ventas por Cliente ---")
             for c in clientes:
                 print(c)
         elif op == "2":
@@ -22,17 +24,16 @@ def menu_cliente(con):
                 input("Correo: "),
                 input("Teléfono: "),
                 input("Ubicación: "),
-                input("Acepta Términos (1 o 0): ")
+                int(input("Acepta Términos (1 o 0): "))
             )
-            columnas = ['cedula', 'nombres', 'apellidos', 'correoElectronico', 'telefono', 'ubicacion', 'aceptaTermino']
-            insertar_registro(con, "CLIENTE", columnas, datos)
+            llamar_sp(con, "sp_cliente_insert", datos)
         elif op == "3":
             cedula = input("Cédula del cliente: ")
             nuevo_correo = input("Nuevo correo: ")
-            actualizar_registro(con, "CLIENTE", ["correoElectronico"], [nuevo_correo], "cedula", cedula)
+            llamar_sp(con, "sp_cliente_update_correo", (cedula, nuevo_correo))
         elif op == "4":
             cedula = input("Cédula del cliente a eliminar: ")
-            eliminar_registro(con, "CLIENTE", "cedula", cedula)
+            llamar_sp(con, "sp_cliente_delete", (cedula,))
         elif op == "0":
             break
         else:

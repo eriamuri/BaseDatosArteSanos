@@ -1,11 +1,11 @@
-from utilidades import insertar_registro, obtener_registros, actualizar_registro, eliminar_registro
+from utilidades import llamar_sp, obtener_registros
 
 def menu_transaccion(con):
     while True:
         print("\n--- TRANSACCIONES ---")
         print("1. Ver Transacciones")
-        print("2. Registrar Transacción")
-        print("3. Actualizar Transacción")
+        print("2. Crear Nueva Transacción (Pendiente)")
+        print("3. Actualizar Estado de Transacción")
         print("4. Eliminar Transacción")
         print("0. Volver")
         op = input("Seleccione una opción: ")
@@ -15,28 +15,19 @@ def menu_transaccion(con):
             for t in transacciones:
                 print(t)
         elif op == "2":
-            datos = (
-                input("ID Transacción: "),
-                input("Fecha (YYYY-MM-DD): "),
-                input("Método de Pago: "),
-                float(input("Total: ")),
-                input("Cédula Cliente: ")
-            )
-            columnas = ['transaccionID', 'fecha', 'metodoPago', 'total', 'cedulaCliente']
-            insertar_registro(con, "TRANSACCION", columnas, datos)
+       
+            id_cliente = input("Cédula del Cliente para la transacción: ")
+      
+            llamar_sp(con, "sp_transaccion_crear", (id_cliente,))
         elif op == "3":
-            id_transaccion = input("ID de la transacción a actualizar: ")
-            datos = (
-                input("Fecha (YYYY-MM-DD): "),
-                input("Método de Pago: "),
-                float(input("Total: ")),
-                input("Cédula Cliente: ")
-            )
-            columnas = ['fecha', 'metodoPago', 'total', 'cedulaCliente']
-            actualizar_registro(con, "TRANSACCION", columnas, datos, "transaccionID", id_transaccion)
+    
+            id_transaccion = int(input("ID de la transacción a actualizar: "))
+            nuevo_estado = input("Nuevo estado (COMPLETADA, CANCELADA, etc.): ")
+  
+            print("NOTA: Se requiere un SP específico para actualizar solo el estado.")
         elif op == "4":
-            id_transaccion = input("ID de la transacción a eliminar: ")
-            eliminar_registro(con, "TRANSACCION", "transaccionID", id_transaccion)
+            id_transaccion = int(input("ID de la transacción a eliminar: "))
+            print("NOTA: Se requiere un SP específico para eliminar transacciones.")
         elif op == "0":
             break
         else:

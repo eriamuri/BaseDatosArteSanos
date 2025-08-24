@@ -1,4 +1,4 @@
-from utilidades import insertar_registro, obtener_registros, actualizar_registro, eliminar_registro
+from utilidades import llamar_sp, obtener_registros
 
 def menu_soporte(con):
     while True:
@@ -15,24 +15,23 @@ def menu_soporte(con):
             for s in soportes:
                 print(s)
         elif op == "2":
+
             datos = (
-                input("ID Soporte: "),
                 input("Correo Electrónico: "),
-                input("ID Administrador: ")
+                int(input("ID Administrador asignado: "))
             )
-            columnas = ['soporteID', 'correoElectronico', 'administradorID']
-            insertar_registro(con, "SOPORTE", columnas, datos)
+            llamar_sp(con, "sp_soporte_insert", datos)
         elif op == "3":
-            id_soporte = input("ID del soporte a actualizar: ")
+            id_soporte = int(input("ID del soporte a actualizar: "))
             datos = (
-                input("Correo Electrónico: "),
-                input("ID Administrador: ")
+                id_soporte,
+                input("Nuevo Correo Electrónico: "),
+                int(input("Nuevo ID Administrador: "))
             )
-            columnas = ['correoElectronico', 'administradorID']
-            actualizar_registro(con, "SOPORTE", columnas, datos, "soporteID", id_soporte)
+            llamar_sp(con, "sp_soporte_update", datos)
         elif op == "4":
-            id_soporte = input("ID del soporte a eliminar: ")
-            eliminar_registro(con, "SOPORTE", "soporteID", id_soporte)
+            id_soporte = int(input("ID del soporte a eliminar: "))
+            llamar_sp(con, "sp_soporte_delete", (id_soporte,))
         elif op == "0":
             break
         else:

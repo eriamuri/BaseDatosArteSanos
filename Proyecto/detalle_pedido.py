@@ -1,39 +1,42 @@
-from utilidades import insertar_registro, obtener_registros, actualizar_registro, eliminar_registro
+from utilidades import llamar_sp, obtener_registros
 
 def menu_detalle_pedido(con):
     while True:
-        print("\n--- DETALLE PEDIDO ---")
-        print("1. Ver Detalles de Pedido")
-        print("2. Registrar Detalle de Pedido")
-        print("3. Actualizar Detalle de Pedido")
-        print("4. Eliminar Detalle de Pedido")
+        print("\n--- DETALLE DE TRANSACCIÓN (CARRITO) ---")
+        print("1. Ver Detalles de Transacciones")
+        print("2. Añadir Producto a Transacción")
+        print("3. Actualizar Cantidad de Producto")
+        print("4. Quitar Producto de Transacción")
         print("0. Volver")
         op = input("Seleccione una opción: ")
 
         if op == "1":
-            detalles = obtener_registros(con, "DETALLE_PEDIDO")
+            detalles = obtener_registros(con, "DETALLES_PXT")
             for d in detalles:
                 print(d)
         elif op == "2":
+
             datos = (
-                input("ID Pedido: "),
-                input("ID Producto: "),
+                int(input("ID Transacción: ")),
+                int(input("ID Producto: ")),
                 int(input("Cantidad: "))
             )
-            columnas = ['pedidoID', 'productoID', 'cantidad']
-            insertar_registro(con, "DETALLE_PEDIDO", columnas, datos)
+            llamar_sp(con, "sp_detalle_agregar", datos)
         elif op == "3":
-            id_detalle = input("ID detalle a actualizar: ")
+
             datos = (
-                input("ID Pedido: "),
-                input("ID Producto: "),
+                int(input("ID Transacción: ")),
+                int(input("ID Producto a actualizar: ")),
                 int(input("Nueva Cantidad: "))
             )
-            columnas = ['pedidoID', 'productoID', 'cantidad']
-            actualizar_registro(con, "DETALLE_PEDIDO", columnas, datos, "detalleID", id_detalle)
+            llamar_sp(con, "sp_detalle_update_cantidad", datos)
         elif op == "4":
-            id_detalle = input("ID detalle a eliminar: ")
-            eliminar_registro(con, "DETALLE_PEDIDO", "detalleID", id_detalle)
+  
+            datos = (
+                int(input("ID Transacción: ")),
+                int(input("ID Producto a eliminar: "))
+            )
+            llamar_sp(con, "sp_detalle_eliminar", datos)
         elif op == "0":
             break
         else:

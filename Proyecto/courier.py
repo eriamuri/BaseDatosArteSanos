@@ -1,4 +1,4 @@
-from utilidades import insertar_registro, obtener_registros, actualizar_registro, eliminar_registro
+from utilidades import llamar_sp, obtener_registros
 
 def menu_courier(con):
     while True:
@@ -16,27 +16,25 @@ def menu_courier(con):
                 print(c)
         elif op == "2":
             datos = (
-                input("ID Courier: "),
                 input("Nombres: "),
                 input("Apellidos: "),
                 int(input("Cantidad Envíos: ")),
                 input("Código Empresa: ")
             )
-            columnas = ['courierID', 'nombres', 'apellidos', 'cantidadEnvios', 'codigoEmpresa']
-            insertar_registro(con, "COURIER", columnas, datos)
+            llamar_sp(con, "sp_courier_insert", datos)
         elif op == "3":
-            id_courier = input("ID del courier a actualizar: ")
+            id_courier = int(input("ID del courier a actualizar: "))
             datos = (
-                input("Nombres: "),
-                input("Apellidos: "),
-                int(input("Cantidad Envíos: ")),
-                input("Código Empresa: ")
+                id_courier,
+                input("Nuevos Nombres: "),
+                input("Nuevos Apellidos: "),
+                int(input("Nueva Cantidad Envíos: ")),
+                input("Nuevo Código Empresa: ")
             )
-            columnas = ['nombres', 'apellidos', 'cantidadEnvios', 'codigoEmpresa']
-            actualizar_registro(con, "COURIER", columnas, datos, "courierID", id_courier)
+            llamar_sp(con, "sp_courier_update", datos)
         elif op == "4":
-            id_courier = input("ID del courier a eliminar: ")
-            eliminar_registro(con, "COURIER", "courierID", id_courier)
+            id_courier = int(input("ID del courier a eliminar: "))
+            llamar_sp(con, "sp_courier_delete", (id_courier,))
         elif op == "0":
             break
         else:
